@@ -3,7 +3,9 @@ import type { NextRequest } from "next/server";
 
 export function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname;
-  const sessionCookie = request.cookies.get("better-auth.session_token");
+  // Check for both insecure (localhost) and secure (production) session cookies
+  const sessionCookie = request.cookies.get("better-auth.session_token") || 
+                       request.cookies.get("__Secure-better-auth.session_token");
   const isAuthenticated = !!sessionCookie;
 
   // Define protected routes (dashboard and its nested routes)
