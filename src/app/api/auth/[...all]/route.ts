@@ -29,3 +29,4 @@ export const POST = async (req: Request) => {
     );
   }
 };
+// Force rebuild to load new auth config
