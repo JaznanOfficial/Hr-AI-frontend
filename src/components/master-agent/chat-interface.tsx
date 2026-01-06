@@ -5,6 +5,8 @@ import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle } from "@/components/ui/sheet"
+import { PreviewPanel } from "./preview-panel"
 
 interface Message {
   id: string
@@ -72,47 +74,71 @@ export function ChatInterface() {
     <div className="flex flex-col h-full bg-background rounded-lg border shadow-sm overflow-hidden relative"> {/* Added overflow-hidden and relative */}
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b bg-background/95 backdrop-blur z-10 sticky top-0 h-16">
+        {/* LEFT SIDE */}
         <div className="flex items-center">
-            <Button variant="outline" size="sm" className="gap-2 h-8 text-xs font-medium">
+            {/* DESKTOP: New Session Button */}
+            <Button variant="outline" size="sm" className="hidden xl:flex gap-2 h-8 text-xs font-medium">
                 <Plus className="h-3.5 w-3.5" />
-                <span className="hidden lg:inline">Create New Session</span>
-                <span className="lg:hidden">New Session</span>
-            </Button>
-        </div>
-        
-        <div className="flex items-center gap-3 lg:gap-0">
-            {/* Preview Button - Visible on Mobile/Tablet (md and below) */}
-            <Button variant="ghost" size="sm" className="gap-2 h-8 text-xs font-medium lg:hidden text-muted-foreground hover:text-foreground">
-                <FileText className="h-4 w-4" />
-                Preview
+                Create New Session
             </Button>
 
-            {/* Title & Icon - Right on Mobile, Centered on Desktop */}
-            <div className="flex items-center gap-3 lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
-                <div className="relative">
+            {/* MOBILE: Humio Branding */}
+            <div className="flex items-center gap-2 xl:hidden">
+                 <div className="relative">
                     <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10 text-primary">
                         <Bot className="h-5 w-5" />
                     </div>
-                    {/* Mobile Online Dot Overlay */}
-                    <span className="absolute -top-1 -left-1 flex h-2.5 w-2.5 lg:hidden">
+                    <span className="absolute -top-1 -left-1 flex h-2.5 w-2.5">
                         <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-background p-[1.5px]">
                             <span className="inline-flex rounded-full h-full w-full bg-green-500"></span>
                         </span>
                     </span>
-                </div>
-                <div className="flex items-center gap-1">
-                    <h3 className="font-semibold text-sm">Humio v1.0</h3>
-                    <span className="inline-flex text-[10px] text-muted-foreground border px-1 rounded">Beta</span>
+                 </div>
+                 <div className="flex items-center gap-1">
+                    <h3 className="font-semibold text-sm">Humio</h3>
                 </div>
             </div>
+        </div>
 
-            {/* Desktop Online Status - Hidden on Mobile */}
-            <div className="hidden lg:flex items-center gap-2">
-                <Button variant="ghost" size="sm" className="text-xs text-muted-foreground pointer-events-none px-3">
-                    <span className="h-2 w-2 rounded-full bg-green-500 mr-2" />
-                    Online
-                </Button>
+        {/* CENTER (DESKTOP ONLY) */}
+        <div className="hidden xl:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center gap-3">
+            <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10 text-primary">
+                <Bot className="h-5 w-5" />
             </div>
+            <div className="flex items-center gap-1">
+                <h3 className="font-semibold text-sm">Humio</h3>
+            </div>
+        </div>
+
+        {/* RIGHT SIDE */}
+        <div className="flex items-center gap-2">
+             {/* MOBILE: New Session + Preview */}
+             <div className="flex items-center gap-2 xl:hidden">
+                <Button variant="outline" size="sm" className="gap-2 h-8 text-xs font-medium">
+                    <Plus className="h-3.5 w-3.5" />
+                    New Session
+                </Button>
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button variant="ghost" size="sm" className="gap-2 h-8 text-xs font-medium text-muted-foreground hover:text-foreground">
+                            <FileText className="h-4 w-4" />
+                            Preview
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="p-0 w-[90%] sm:w-[540px]">
+                        <SheetHeader className="sr-only">
+                           <SheetTitle>Preview</SheetTitle>
+                        </SheetHeader>
+                        <PreviewPanel />
+                    </SheetContent>
+                </Sheet>
+             </div>
+
+             {/* DESKTOP: Online Status */}
+             <Button variant="ghost" size="sm" className="hidden xl:flex text-xs text-muted-foreground pointer-events-none px-3">
+                <span className="h-2 w-2 rounded-full bg-green-500 mr-2" />
+                Online
+             </Button>
         </div>
       </div>
 
@@ -159,13 +185,13 @@ export function ChatInterface() {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 bg-background border-t z-10">
+      <div className="p-4 bg-background  z-10">
         <div className="relative rounded-xl border bg-muted/20 focus-within:ring-1 focus-within:ring-ring transition-all">
             <Textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Message Humio..."
-                className="min-h-15 w-full resize-none border-0 bg-transparent p-4 placeholder:text-muted-foreground focus-visible:ring-0 shadow-none"
+                className="min-h-15 max-h-[35vh] w-full resize-none border-0 bg-transparent p-4 placeholder:text-muted-foreground focus-visible:ring-0 shadow-none"
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault()
@@ -173,7 +199,7 @@ export function ChatInterface() {
                     }
                 }}
             />
-            <div className="flex items-center justify-between p-2 pt-0">
+            <div className="flex items-center justify-between p-2">
                 <div className="flex items-center gap-2">
                     <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
                         <Paperclip className="h-4 w-4" />
@@ -188,13 +214,11 @@ export function ChatInterface() {
                     disabled={!input.trim()}
                     className="gap-2 rounded-lg"
                 >
-                    Send <Send className="h-3.5 w-3.5" />
+                 <Send className="h-3.5 w-3.5" />
                 </Button>
             </div>
         </div>
-        <p className="text-[10px] text-center text-muted-foreground mt-3">
-            AI can make mistakes. Please verify important information.
-        </p>
+        
       </div>
     </div>
   )
