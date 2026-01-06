@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Send, Paperclip, Mic, Bot, User, Plus } from "lucide-react"
+import { Send, Paperclip, Mic, Bot, User, Plus, FileText } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -80,21 +80,39 @@ export function ChatInterface() {
             </Button>
         </div>
         
-        <div className="flex items-center gap-3 lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
-            <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10 text-primary">
-                <Bot className="h-5 w-5" />
-            </div>
-            <div className="flex items-center gap-1">
-                <h3 className="font-semibold text-sm">Humio <span className="hidden lg:inline">v1.0</span></h3>
-                <span className="hidden lg:inline-flex text-[10px] text-muted-foreground border px-1 rounded">Beta</span>
-            </div>
-        </div>
-
-        <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" className="text-xs text-muted-foreground pointer-events-none px-2 lg:px-3">
-                <span className="h-2 w-2 rounded-full bg-green-500 lg:mr-2" />
-                <span className="hidden lg:inline">Online</span>
+        <div className="flex items-center gap-3 lg:gap-0">
+            {/* Preview Button - Visible on Mobile/Tablet (md and below) */}
+            <Button variant="ghost" size="sm" className="gap-2 h-8 text-xs font-medium lg:hidden text-muted-foreground hover:text-foreground">
+                <FileText className="h-4 w-4" />
+                Preview
             </Button>
+
+            {/* Title & Icon - Right on Mobile, Centered on Desktop */}
+            <div className="flex items-center gap-3 lg:absolute lg:left-1/2 lg:top-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2">
+                <div className="relative">
+                    <div className="flex items-center justify-center h-8 w-8 rounded-lg bg-primary/10 text-primary">
+                        <Bot className="h-5 w-5" />
+                    </div>
+                    {/* Mobile Online Dot Overlay */}
+                    <span className="absolute -top-1 -left-1 flex h-2.5 w-2.5 lg:hidden">
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-background p-[1.5px]">
+                            <span className="inline-flex rounded-full h-full w-full bg-green-500"></span>
+                        </span>
+                    </span>
+                </div>
+                <div className="flex items-center gap-1">
+                    <h3 className="font-semibold text-sm">Humio v1.0</h3>
+                    <span className="inline-flex text-[10px] text-muted-foreground border px-1 rounded">Beta</span>
+                </div>
+            </div>
+
+            {/* Desktop Online Status - Hidden on Mobile */}
+            <div className="hidden lg:flex items-center gap-2">
+                <Button variant="ghost" size="sm" className="text-xs text-muted-foreground pointer-events-none px-3">
+                    <span className="h-2 w-2 rounded-full bg-green-500 mr-2" />
+                    Online
+                </Button>
+            </div>
         </div>
       </div>
 
