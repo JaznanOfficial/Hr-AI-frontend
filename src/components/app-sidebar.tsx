@@ -17,6 +17,7 @@ import {
   Users,
   Bot,
   LayoutDashboard,
+  PlugZap,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -44,10 +45,6 @@ const data = {
       url: "#",
       icon: Briefcase,
       items: [
-        {
-          title: "Create Job",
-          url: "/dashboard/talent-acquisition/create-job",
-        },
         {
           title: "Job Page",
           url: "/dashboard/talent-acquisition/job-page",
@@ -362,16 +359,19 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip="Dashboard" isActive={pathname === '/dashboard'}>
                 <Link href="/dashboard">
-                  <LayoutDashboard />
-                  <span>Dashboard</span>
+                  <div dangerouslySetInnerHTML={{
+                  __html: "&bull;",
+                }}
+              />
+                <span>Dashboard</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Humio" isActive={pathname === '/dashboard/humio-ai'}>
-                <Link href="/dashboard/humio-ai">
-                  <Bot />
-                  <span>Humio AI</span>
+              <SidebarMenuButton asChild tooltip="Integrations" isActive={pathname === '/dashboard/integrations'}>
+                <Link href="/dashboard/integrations">
+                  <PlugZap />
+                  <span>Integrations</span>
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
