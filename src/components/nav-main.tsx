@@ -39,7 +39,7 @@ export function NavMain({
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      <SidebarGroupLabel>Operations</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           // Check if any sub-item is active to keep the group expanded
