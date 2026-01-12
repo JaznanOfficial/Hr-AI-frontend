@@ -12,7 +12,7 @@ export default function MasterAgentPage() {
       </div>
 
       {/* Preview Area - Fixed width on desktop, hidden on mobile */}
-      <div className="hidden h-full w-[450px] xl:block">
+      <div className="hidden min-h-0 w-[450px] xl:flex">
         <PreviewPanel />
       </div>
     </div>

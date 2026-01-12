@@ -371,6 +371,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="Project" isActive={pathname === '/dashboard/project'}>
+                <Link href="/dashboard/project">
+                  <LayoutDashboard />
+                  <span>Project</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
           </SidebarMenu>
         </SidebarGroup>
         <NavMain items={data.navMain} />
