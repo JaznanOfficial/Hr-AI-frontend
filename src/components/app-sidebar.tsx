@@ -3,12 +3,14 @@
 import * as React from "react"
 import {
   Briefcase,
+  ClipboardList,
   Command,
   LifeBuoy,
   Send,
   Users,
   Bot,
   LayoutDashboard,
+  Building2,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -43,6 +45,11 @@ const data = {
     },
   ],
   navSecondary: [
+    {
+      title: "Organization",
+      url: "/dashboard/organization",
+      icon: Building2,
+    },
     {
       title: "Support",
       url: "/dashboard/support",
@@ -108,6 +115,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="Project" isActive={pathname === '/dashboard/project'}>
+                <Link href="/dashboard/project">
+                  <ClipboardList />
+                  <span>Projects</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip="Humio" isActive={pathname === '/dashboard/humio-ai'}>
                 <Link href="/dashboard/humio-ai">
                   <Bot />
@@ -115,14 +130,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild tooltip="Project" isActive={pathname === '/dashboard/project'}>
-                <Link href="/dashboard/project">
-                  <LayoutDashboard />
-                  <span>Project</span>
-                </Link>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            
           </SidebarMenu>
         </SidebarGroup>
         <NavMain items={data.navMain} />
