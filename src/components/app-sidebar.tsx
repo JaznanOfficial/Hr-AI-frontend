@@ -123,6 +123,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
+              <SidebarMenuButton asChild tooltip="Teams" isActive={pathname === '/dashboard/teams'}>
+                <Link href="/dashboard/teams">
+                  <Briefcase />
+                  <span>Teams</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
               <SidebarMenuButton asChild tooltip="Humio" isActive={pathname === '/dashboard/humio-ai'}>
                 <Link href="/dashboard/humio-ai">
                   <Bot />
